@@ -1,13 +1,19 @@
 {
   "codepoint": "U+12000",
   "name": "A",
-  "sign": [
+  "glyph": [
     {
       "glyph": "𒀀",
       "periods": [
         "OA",
         "OB",
         "MA"
+      ]
+    },
+    {
+      "glyph": "𒀀2",
+      "periods": [
+        "OA"
       ]
     }
   ],
@@ -26,5 +32,6 @@
         "MA"
       ]
     }
-  ]
+  ],
+  "notes": "The first sign in the unicode codeblock."
 }

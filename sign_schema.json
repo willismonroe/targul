@@ -11,7 +11,7 @@
       "description": "The name of the cuneiform sign",
       "type": "string"
     },
-    "sign": {
+    "glyph": {
       "description": "The cuneiform symbol(s) and period(s)",
       "type": "array",
       "items": {
@@ -26,10 +26,18 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "minItems": 1,
+            "uniqueItems": true
           }
-        }
-      }
+        },
+        "required": [
+          "glyph",
+          "periods"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
     },
     "value": {
       "description": "The cuneiform value(s) and period(s)",
@@ -46,10 +54,27 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "minItems": 1,
+            "uniqueItems": true
           }
-        }
-      }
+        },
+        "required": [
+          "value",
+          "periods"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "codepoint",
+    "name",
+    "glyph",
+    "value"
+  ]
 }
