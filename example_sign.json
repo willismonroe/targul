@@ -1,0 +1,30 @@
+{
+  "codepoint": "U+12000",
+  "name": "A",
+  "sign": [
+    {
+      "glyph": "𒀀",
+      "periods": [
+        "OA",
+        "OB",
+        "MA"
+      ]
+    }
+  ],
+  "value": [
+    {
+      "value": "ṭur₄",
+      "periods": [
+        "OAkk"
+      ]
+    },
+    {
+      "value": "a",
+      "periods": [
+        "OA",
+        "OB",
+        "MA"
+      ]
+    }
+  ]
+}

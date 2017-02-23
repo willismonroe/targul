@@ -1,0 +1,55 @@
+{
+  "title": "Cuneiform sign",
+  "description": "A json object describing a cuneiform sign",
+  "type": "object",
+  "properties": {
+    "codepoint": {
+      "description": "The Unicode codepoint",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the cuneiform sign",
+      "type": "string"
+    },
+    "sign": {
+      "description": "The cuneiform symbol(s) and period(s)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "glyph": {
+            "description": "Unicode glyph",
+            "type": "string"
+          },
+          "periods": {
+            "description": "Period(s) associated with glyph",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "description": "The cuneiform value(s) and period(s)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "description": "Value",
+            "type": "string"
+          },
+          "periods": {
+            "description": "Period(s) associated with value",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
