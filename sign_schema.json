@@ -12,7 +12,7 @@
       "type": "string"
     },
     "glyph": {
-      "description": "The cuneiform symbol(s) and period(s)",
+      "description": "The cuneiform symbol(s) and period(s), if no periods are specified all are assumed.",
       "type": "array",
       "items": {
         "type": "object",
@@ -32,15 +32,14 @@
           }
         },
         "required": [
-          "glyph",
-          "periods"
+          "glyph"
         ]
       },
       "minItems": 1,
       "uniqueItems": true
     },
     "value": {
-      "description": "The cuneiform value(s) and period(s)",
+      "description": "The cuneiform value(s) and period(s), if not periods are specified all are assumed.",
       "type": "array",
       "items": {
         "type": "object",
@@ -60,8 +59,7 @@
           }
         },
         "required": [
-          "value",
-          "periods"
+          "value"
         ]
       },
       "minItems": 1,
