@@ -28,7 +28,7 @@ def get_syllables(word):
     syllables = []
 
     # If there's an initial vowel and the word is longer than 2 letters,
-    # and the third syllable is a consonant (easy way to check for VCC pattern),
+    # and the third syllable is a not consonant (easy way to check for VCC pattern),
     # the initial vowel is the first syllable.
     # Rule (b.ii)
     if word[0] in vowels:
