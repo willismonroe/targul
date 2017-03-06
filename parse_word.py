@@ -4,6 +4,10 @@ consonants = ['b', 'd', 'g', 'ḫ', 'k', 'l', 'm',
               'n', 'p', 'q', 'r', 's', 'ṣ', 'š',
               't', 'ṭ', 'w', 'y', 'z', 'ʾ']
 
+vowels_with_length = ['ā', 'ē', 'ī', 'ū', 'â', 'ê', 'î', 'û']
+
+vowels = vowels + vowels_with_length
+
 
 def get_syllables(word):
     """
@@ -56,10 +60,10 @@ def get_syllables(word):
 def test():
     # small test suite
     # TODO: move this out to a real test system
-    print(get_syllables('balaṭi') == ['ba', 'la', 'ṭi'])
-    print(get_syllables('elum') == ['e', 'lum'])
+    print(get_syllables('balāṭī') == ['ba', 'lā', 'ṭī'])
+    print(get_syllables('elûm') == ['e', 'lûm'])
     print(get_syllables('ṣabat') == ['ṣa', 'bat'])
-    print(get_syllables('iteneppuš') == ['i', 'te', 'nep', 'puš'])
+    print(get_syllables('īteneppuš') == ['ī', 'te', 'nep', 'puš'])
     print(get_syllables('narkabtum') == ['nar', 'kab', 'tum'])
     print(get_syllables('epištašu') == ['e', 'piš', 'ta', 'šu'])
     print(get_syllables('kiam') == ['ki', 'am'])
