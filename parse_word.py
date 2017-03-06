@@ -27,42 +27,47 @@ def get_syllables(word):
     """
     syllables = []
 
+    # If there's an initial vowel and the word is longer than 2 letters,
+    # and the third syllable is a consonant (easy way to check for VCC pattern),
+    # the initial vowel is the first syllable.
     # Rule (b.ii)
-    if word[0] in vowels and word[2] not in consonants:
-        syllables.append(word[0])
-        word = word[1:]
+    if word[0] in vowels:
+        if len(word) > 2 and word[2] not in consonants:
+            syllables.append(word[0])
+            word = word[1:]
 
     # flip the word and count from the back:
     word = word[::-1]
 
+    # Here we iterate over the characters backwards trying to match
+    # consonant and vowel patterns in a hierarchical way.
+    # Each time we find a match we store the syllable (in reverse order)
+    # and move the index ahead the length of the syllable.
     syllables_reverse = []
     i = 0
     while i < len(word):
         char = word[i]
 
         # CV:
-        # "iṭ" -> "ṭi"
         if char in vowels:
             syllables_reverse.append(word[i + 1] + word[i])
             i += 2
 
         # CVC and VC:
-        # "mul" -> "lum"
-        # "ma" -> "am"
         elif char in consonants:
             if word[i + 1] in vowels:
-                # If there are only two syllables left, that's it
+                # If there are only two syllables left, that's it.
                 if i + 2 >= len(word):
                     syllables_reverse.append(word[i + 1] + word[i])
                     break
+                # CVC
                 elif word[i + 2] in consonants:
                     syllables_reverse.append(word[i + 2] + word[i + 1] + word[i])
                     i += 3
+                # VC (remember it's backwards here)
                 elif word[i + 2] in vowels:
                     syllables_reverse.append(word[i + 1] + word[i])
                     i += 2
-        else:
-            i += 1
 
     return syllables + syllables_reverse[::-1]
 
@@ -91,7 +96,9 @@ def find_stress(word):
 
     syllables_stress = []
     for i, syllable in enumerate(word):
-        # enumerate over the syllables and mark them for length
+        # Enumerate over the syllables and mark them for length
+        # We check each type of length by looking at the length of the
+        # syllable and verifying rules based on character length.
 
         # Ultraheavy:
         # -â, -bâ, -āk, -bāk, -âk, -bâk.
@@ -129,7 +136,7 @@ def find_stress(word):
                 syllables_stress.append((syllable, "Heavy"))
                 continue
 
-        # Short:
+        # Light:
         # -a, -ba
         if len(syllable) == 1:
             if syllable in short_vowels:
@@ -163,8 +170,15 @@ def find_stress(word):
             found_stress = 1
             continue
 
-        else:
+        # Final 'Heavy' syllable, gets no stress
+        elif syllable[1] == 'Heavy' and i == 0:
             syllables.append(syllable[0])
+            continue
+
+        # Light syllable gets no stress
+        elif syllable[1] == "Light":
+            syllables.append(syllable[0])
+            continue
 
     # Reverse the list again
     syllables = syllables[::-1]
