@@ -189,20 +189,52 @@ def get_stem(noun, gender, mimation=True):
 
 
 def get_bound_form(noun, gender):
+    syllables = syll.syllabify(noun)
     stem = get_stem(noun, gender)
     cv = get_cv_pattern(stem)
-    if [x[0] for x in cv[-2:]] == ['V', 'C']:
-        # Rule 1
-        syllables = syll.syllabify(noun)
+    # Based on Huehnergard Appendix 6.C.1: base in -VC
+    if [letter[0] for letter in cv[-2:]] == ['V', 'C'] or stem in ['nakr']:
+        # a. 2-syllable
         if len(syllables) > 2:
             # awīlum > awīl, nakrum > naker
-            pass
+            if stem in ['nakr']:
+                return 'naker'
+            else:
+                return stem
+        # b. 1-syllable
         elif len(syllables) > 1:
             # bēlum > bēl
-            pass
+            return stem
+        # c. abum, aḫum
         if stem in ['ab', 'aḫ']:
             return stem + 'i'
-
+    # Appendix 6.C.2: base in -C₁C₁
+    if cv[-1][:2] == cv[-2][:2]:
+        # a. 1-syllable
+        if 3 > len(syllables) > 1:
+            return stem + 'i'
+        # b. 2-syllable, -tt
+        if len(syllables) > 2 and cv[-1][2] + cv[-2][2] == 'tt':
+            return stem + 'i'
+        # c. 2-syllable, other
+        if len(syllables) > 2:
+            return stem[:-1]
+    # Appendix 6.C.3: base in -C₁C₂, C₂ ≠ t, i.e. pVrs
+    if cv[-1][0] == cv[-2][0] and cv[-1][1] != cv[-2][1]:
+        return stem[:-1] + stem[1] + stem[-1]
+    # Appendix 6.C.4: base in -Ct (fem.)
+    if cv[-1][2] == 't' and cv[-2][0] == 'C':
+        if len(syllables) > 2:
+            return stem + 'i'
+        # Need to deal with fem. Ptcpl. māḫirtum -> māḫirat
+        if len(syllables) > 1:
+            # These are case by case
+            if stem in ['qīšt']:
+                return stem + 'i'
+            if stem in ['mārt']:
+                return stem[:-1] + stem[1] + stem[-1]
+                # Appendix 6.C.5: base in -V
+                # Weak nouns...
 
 def decline_noun(noun, gender, case=None, number=None, mimation=True):
     stem = get_stem(noun, gender)
